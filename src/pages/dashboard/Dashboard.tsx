@@ -2,11 +2,6 @@ import { format } from "date-fns";
 import { useState } from "react";
 import { TableColumn } from "react-data-table-component";
 import CountUp from "react-countup";
-import {
-  useFetchTasks,
-  useFetchTaskStatusCount,
-  useFetchUsers,
-} from "../../utils/api/dashboard-request";
 import { handleError } from "../../utils/notify";
 import Layout from "../../components/layout";
 import CardLayout from "../../components/card-layout";
@@ -18,8 +13,8 @@ const Dashboard = () => {
   const [loading, _setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState(1);
 
-  const { tasks, isLoading, error, addTodo } = useTodos();
-  handleError(error)
+  const { tasks, isLoading, error } = useTodos();
+  // handleError(error)
 
 
   const columns: TableColumn<any>[] = [
@@ -44,7 +39,7 @@ const Dashboard = () => {
     {
       name: "Date-Time",
       selector: (row) =>
-        format(new Date(row?.createdAt), "MMMM d, yyyy h:mm a"),
+        format(new Date(row?.created_at), "MMMM d, yyyy h:mm a"),
       minWidth: "250px",
     },
   ];

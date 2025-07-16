@@ -11,14 +11,19 @@ import Layout from "../../components/layout";
 import { TableColumn } from "react-data-table-component";
 import { BsThreeDots } from "react-icons/bs";
 import { format } from "date-fns";
-import { useFetchTasks } from "../../utils/api/dashboard-request";
 import { handleError } from "../../utils/notify";
+import CreateTaskModal from "../../components/task-components/create-task-modal";
+import Button from "../../components/button";
+import Table from "../../components/table";
+import { useTodos } from "../../hooks/useTodos";
 
 function Tasks() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<any>();
+  const { tasks, isLoading, error } = useTodos();
+
 
 
   const columns: TableColumn<any>[] = [
@@ -37,12 +42,12 @@ function Tasks() {
     {
       name: "Date-Time",
       selector: (row) =>
-        format(new Date(row?.createdAt), "MMMM d, yyyy h:mm a"),
+        format(new Date(row?.created_at), "MMMM d, yyyy h:mm a"),
       minWidth: "250px",
     },
     {
       name: "Status",
-      selector: (row) => row.status,
+      selector: (row) => row?.status,
       // cell: (row) => <StatusPill status={row.status} />,
       minWidth: "250px",
     },
@@ -108,7 +113,27 @@ function Tasks() {
 
   return (
     <Layout header="Tasks">
-      <h1>Tasks</h1>
+      <div className="flex items-center justify-between my-4">
+        <div className="text-gray-400 px-5">
+          <h1 className="text-sm">Total Tasks: {tasks?.length}</h1>
+        </div>
+        <Button
+          rounded={false}
+          onClick={() => setIsCreateModalOpen(true)}
+          className="w-1/2 text-xs md:w-1/5"
+        >
+          Create Task +
+        </Button>
+      </div>
+      <div className="bg-white rounded-3xl py-5 border">
+        <Table progressPending={isLoading} columns={columns} data={tasks} />
+      </div>
+
+      <CreateTaskModal
+        isOpen={isCreateModalOpen}
+        setIsOpen={setIsCreateModalOpen}
+      />
+
     </Layout>
   );
 }
