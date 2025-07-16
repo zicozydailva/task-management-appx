@@ -9,8 +9,8 @@ const Home = () => {
           Join us for an amazing experience. Let's get started! 🚀
         </p>
         <Link
-          // to="/auth/login"
-          to="/dashboard"
+          to="/auth/login"
+          // to="/dashboard"
           className="px-6 py-3 mt-4 bg-primary text-white rounded-full text-lg font-semibold shadow-md hover:bg-blue-700 transition"
         >
           Get Started

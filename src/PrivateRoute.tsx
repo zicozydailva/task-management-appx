@@ -1,9 +1,33 @@
+import { useEffect, useState } from "react";
 import { Outlet, Navigate } from "react-router-dom";
+import supabase from "./lib/supabaseClient";
 
 const PrivateRoute = () => {
-  const isAuthenticated = !!localStorage.getItem("accessToken");
+  const [authenticated, setAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+  console.log("PrivateRoute component rendered");
+
+  useEffect(() => {
+    const getSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      setAuthenticated(!!session);
+      setLoading(false);
+    };
+
+    getSession();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  } else {
+    if (authenticated) {
+      return <Outlet />;
+    }
+    return <Navigate to="/login" />;
+  }
 };
 
 export default PrivateRoute;

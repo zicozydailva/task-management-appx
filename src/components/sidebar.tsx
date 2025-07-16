@@ -42,7 +42,7 @@ export default function Sidebar() {
 
       {/*SIDE NAVS*/}
       <div className=" bg-primary flex-grow">
-        <div className="w-full pt-8">
+        <div className="w-full cursor-pointer pt-8">
           {routes.map(({ name, route, icon }, index) => (
             <div className="w-full xl:mb-2" key={index}>
               <div
@@ -56,7 +56,7 @@ export default function Sidebar() {
               >
                 <div className="flex items-center space-x-3">
                   <img src={icon} alt={name} height={20} width={20} />
-                  <div>{name}</div>
+                  <div className="cursor-pointer">{name}</div>
                 </div>
               </div>
             </div>
