@@ -16,6 +16,7 @@ import CreateTaskModal from "../../components/task-components/create-task-modal"
 import Button from "../../components/button";
 import Table from "../../components/table";
 import { useTodos } from "../../hooks/useTodos";
+import DeleteTaskModal from "../../components/task-components/delete-confirmation-modal";
 
 function Tasks() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -23,8 +24,6 @@ function Tasks() {
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<any>();
   const { tasks, isLoading, error } = useTodos();
-
-
 
   const columns: TableColumn<any>[] = [
     {
@@ -133,7 +132,11 @@ function Tasks() {
         isOpen={isCreateModalOpen}
         setIsOpen={setIsCreateModalOpen}
       />
-
+      <DeleteTaskModal
+        isOpen={isDeleteModalOpen}
+        setIsOpen={setIsDeleteModalOpen}
+        selectedItem={selectedItem}
+      />
     </Layout>
   );
 }

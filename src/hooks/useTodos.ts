@@ -1,11 +1,12 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import supabase from '../lib/supabaseClient';
 import { queryKeys } from '../utils/constants';
-import { createTask } from '../utils/api/tasks/tasks.api';
+import { createTask, deleteTask } from '../utils/api/tasks/tasks.api';
+
 
 export const useTodos = () => {
-    const queryClient = useQueryClient();
 
+    const queryClient = useQueryClient();
     const { data: tasks, isLoading, error } = useQuery({
         queryKey: [queryKeys.tasks],
         queryFn: async () => {
@@ -44,6 +45,18 @@ export const useCreateTask = () => {
 
     return useMutation({
         mutationFn: createTask,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: [queryKeys.tasks] });
+        },
+    });
+};
+
+
+export const useDeleteTask = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: deleteTask,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: [queryKeys.tasks] });
         },
