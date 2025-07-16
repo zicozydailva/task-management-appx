@@ -5,11 +5,11 @@ import { queryKeys } from '../utils/constants';
 export const useTodos = () => {
   const queryClient = useQueryClient();
 
-  const { data: todos, isLoading, error } = useQuery({
+  const { data: tasks, isLoading, error } = useQuery({
     queryKey: [queryKeys.tasks],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('todos')
+        .from('tasks')
         .select('*')
         .order('created_at', { ascending: false });
       if (error) throw error;
@@ -20,7 +20,7 @@ export const useTodos = () => {
   const addTodo = useMutation({
     mutationFn: async (title: string) => {
       const { data, error } = await supabase
-        .from('todos')
+        .from('tasks')
         .insert([{ title, is_complete: false }]);
       if (error) throw error;
       return data;
@@ -31,7 +31,7 @@ export const useTodos = () => {
   });
 
   return {
-    todos,
+    tasks,
     isLoading,
     error,
     addTodo,

@@ -18,7 +18,7 @@ const Dashboard = () => {
   const [loading, _setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState(1);
 
-  const { todos, isLoading, error, addTodo } = useTodos();
+  const { tasks, isLoading, error, addTodo } = useTodos();
   handleError(error)
 
 
@@ -322,7 +322,7 @@ const Dashboard = () => {
               <Table
                 progressPending={isLoading}
                 columns={columns}
-                data={todos || []}
+                data={tasks || []}
               />
             </div>
           )}
