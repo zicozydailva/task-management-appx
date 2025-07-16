@@ -6,8 +6,8 @@ import { Task } from '../interfaces';
 
 
 export const useTodos = () => {
-
     const queryClient = useQueryClient();
+
     const { data: tasks, isLoading, error } = useQuery({
         queryKey: [queryKeys.tasks],
         queryFn: async () => {
@@ -20,24 +20,10 @@ export const useTodos = () => {
         },
     });
 
-    const addTodo = useMutation({
-        mutationFn: async (title: string) => {
-            const { data, error } = await supabase
-                .from('Task')
-                .insert([{ title, is_complete: false }]);
-            if (error) throw error;
-            return data;
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: [queryKeys.tasks] });
-        },
-    });
-
     return {
         tasks,
         isLoading,
         error,
-        addTodo,
     };
 };
 
