@@ -9,6 +9,9 @@ import {
 } from "../../utils/api/dashboard-request";
 import { handleError } from "../../utils/notify";
 import Layout from "../../components/layout";
+import CardLayout from "../../components/card-layout";
+import Table from "../../components/table";
+import CustomButton from "../../components/custom-button";
 
 const Dashboard = () => {
   const [loading, _setLoading] = useState(false);
@@ -65,7 +68,7 @@ const Dashboard = () => {
   return (
     <Layout header="Dashboard" loading={loading}>
       <h1>Dashboard</h1>
-      {/* <div className="col-span-1 grid grid-cols-1 gap-4 md:col-span-3 md:grid-cols-3">
+      <div className="col-span-1 grid grid-cols-1 gap-4 md:col-span-3 md:grid-cols-3">
         <CardLayout className="px-6 py-8">
           <div className="flex h-full w-full items-center space-x-4">
             <div className="flex h-12 w-12 items-center justify-center">
@@ -123,10 +126,10 @@ const Dashboard = () => {
             <div className="space-y">
               <p className="text-sm text-black md:text-base">Pending Tasks</p>
               <p className="text-md font-semibold text-black md:text-xl">
-                <CountUp
+                {/* <CountUp
                   end={taskCounts?.statusCounts.pending || 0}
                   duration={3}
-                />
+                /> */}
               </p>
             </div>
           </div>
@@ -191,10 +194,10 @@ const Dashboard = () => {
                 In-progress Tasks
               </p>
               <p className="text-md font-semibold text-black md:text-xl">
-                <CountUp
+                {/* <CountUp
                   end={taskCounts?.statusCounts["in-progress"] || 0}
                   duration={3}
-                />
+                /> */}
               </p>
             </div>
           </div>
@@ -257,10 +260,10 @@ const Dashboard = () => {
             <div className="space-y">
               <p className="text-sm text-black md:text-base">Completed Tasks</p>
               <p className="text-md font-semibold text-black md:text-xl">
-                <CountUp
+                {/* <CountUp
                   end={taskCounts?.statusCounts.completed || 0}
                   duration={3}
-                />
+                /> */}
               </p>
             </div>
           </div>
@@ -271,14 +274,14 @@ const Dashboard = () => {
         <aside className=" md:w-2/3 rounded-xl border border-gray-300 p-8">
           <h2 className="mb-4 text-black">Users</h2>
           <h2 className="mb-4 font-semibold text-2xl text-black">
-            <CountUp end={users?.length || 0} duration={3} />
+            {/* <CountUp end={users?.length || 0} duration={3} /> */}
           </h2>
-          <ActiveEsimChart />
+          {/* <ActiveEsimChart /> */}
         </aside>
         <aside className="rounded-xl md:w-1/2 border border-gray-300 p-4">
           <h2 className=" text-black">Tasks</h2>
           <div className="">
-            <DoughnutChart taskCounts={taskCounts} />
+            {/* <DoughnutChart taskCounts={taskCounts} /> */}
           </div>
         </aside>
       </section>
@@ -309,25 +312,25 @@ const Dashboard = () => {
         <aside className="rounded-xl  border-gray-300 p-6 ">
           {activeTab == 1 && (
             <div className="bg-white rounded-3xl py-5 border">
-              <Table
+              {/* <Table
                 progressPending={isPending}
                 columns={columns}
                 data={tasks}
-              />
+              /> */}
             </div>
           )}
 
           {activeTab == 2 && (
             <div className="bg-white rounded-3xl py-5 border">
-              <Table
+              {/* <Table
                 progressPending={userFetchPending}
                 columns={usersColumns}
                 data={users}
-              />
+              /> */}
             </div>
           )}
         </aside>
-      </main> */}
+      </main>
     </Layout>
   );
 };
