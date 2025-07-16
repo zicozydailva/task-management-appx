@@ -18,8 +18,7 @@ export default function DeleteTaskModal({
   selectedItem,
 }: Props) {
   const { mutateAsync: deleteTask } = useDeleteTask();
-
-
+  
   const handleDelete = async () => {
     try {
       await deleteTask(selectedItem.id);

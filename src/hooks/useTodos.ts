@@ -1,7 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import supabase from '../lib/supabaseClient';
 import { queryKeys } from '../utils/constants';
-import { createTask, deleteTask } from '../utils/api/tasks/tasks.api';
+import { createTask, deleteTask, updateTask } from '../utils/api/tasks/tasks.api';
+import { Task } from '../interfaces';
 
 
 export const useTodos = () => {
@@ -57,6 +58,18 @@ export const useDeleteTask = () => {
 
     return useMutation({
         mutationFn: deleteTask,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: [queryKeys.tasks] });
+        },
+    });
+};
+
+export const useUpdateTask = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (args: { id: string; updates: Partial<Task> }) =>
+            updateTask(args.id, args.updates),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: [queryKeys.tasks] });
         },

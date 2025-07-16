@@ -17,6 +17,7 @@ import Button from "../../components/button";
 import Table from "../../components/table";
 import { useTodos } from "../../hooks/useTodos";
 import DeleteTaskModal from "../../components/task-components/delete-confirmation-modal";
+import UpdateTaskModal from "../../components/task-components/update-task-modal";
 
 function Tasks() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -135,6 +136,11 @@ function Tasks() {
       <DeleteTaskModal
         isOpen={isDeleteModalOpen}
         setIsOpen={setIsDeleteModalOpen}
+        selectedItem={selectedItem}
+      />
+      <UpdateTaskModal
+        isOpen={isUpdateModalOpen}
+        setIsOpen={setIsUpdateModalOpen}
         selectedItem={selectedItem}
       />
     </Layout>

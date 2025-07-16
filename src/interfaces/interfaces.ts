@@ -11,3 +11,5 @@ export type Task = {
   extras?: Record<string, any>;
   created_at: string;
 };
+
+export type TaskStatus = "pending" | "in-progress" | "done";
