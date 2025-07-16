@@ -9,6 +9,8 @@ import Table from "../../components/table";
 import CustomButton from "../../components/custom-button";
 import { useTodos } from "../../hooks/useTodos";
 import StatusPill from "../../components/status-pill";
+import DoughnutChart from "../../components/dashboard-chart/doughnut-chart";
+import ActiveEsimChart from "../../components/dashboard-chart/user-chart";
 
 const Dashboard = () => {
   const [loading, _setLoading] = useState(false);
@@ -284,12 +286,13 @@ const Dashboard = () => {
           <h2 className="mb-4 font-semibold text-2xl text-black">
             {/* <CountUp end={users?.length || 0} duration={3} /> */}
           </h2>
-          {/* <ActiveEsimChart /> */}
+          <ActiveEsimChart />
         </aside>
         <aside className="rounded-xl md:w-1/2 border border-gray-300 p-4">
           <h2 className=" text-black">Tasks</h2>
           <div className="">
             {/* <DoughnutChart taskCounts={taskCounts} /> */}
+            <DoughnutChart taskCounts={20} />
           </div>
         </aside>
       </section>
