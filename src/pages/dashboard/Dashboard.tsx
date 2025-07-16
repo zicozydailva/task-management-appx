@@ -12,10 +12,15 @@ import Layout from "../../components/layout";
 import CardLayout from "../../components/card-layout";
 import Table from "../../components/table";
 import CustomButton from "../../components/custom-button";
+import { useTodos } from "../../hooks/useTodos";
 
 const Dashboard = () => {
   const [loading, _setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState(1);
+
+  const { todos, isLoading, error, addTodo } = useTodos();
+  handleError(error)
+
 
   const columns: TableColumn<any>[] = [
     {
@@ -64,6 +69,8 @@ const Dashboard = () => {
       minWidth: "200px",
     },
   ];
+
+
 
   return (
     <Layout header="Dashboard" loading={loading}>
@@ -312,11 +319,11 @@ const Dashboard = () => {
         <aside className="rounded-xl  border-gray-300 p-6 ">
           {activeTab == 1 && (
             <div className="bg-white rounded-3xl py-5 border">
-              {/* <Table
-                progressPending={isPending}
+              <Table
+                progressPending={isLoading}
                 columns={columns}
-                data={tasks}
-              /> */}
+                data={todos || []}
+              />
             </div>
           )}
 
