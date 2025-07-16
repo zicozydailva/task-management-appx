@@ -1,50 +1,86 @@
-# React + TypeScript + Vite
+# 📝 Task management app — Smart Task Manager with Supabase + React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Taskify is a full-stack task management application built with **React**, **TypeScript**, and **Supabase**. It lets users securely authenticate, create, update, and manage their daily tasks with real-time syncing and persistent storage.
 
-Currently, two official plugins are available:
+## ⚙️ Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Frontend:** React 18, TypeScript
+- **Backend-as-a-Service:** Supabase (PostgreSQL + Auth + Storage)
+- **State/Data Management:** React Query
+- **Styling:** TailwindCSS (or your choice)
+- **Notifications:** custom `handleError` and `handleSuccess` wrappers
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 📁 Project Structure
 
-- Configure the top-level `parserOptions` property like this:
+src/
+├── components/ # Reusable UI components
+├── hooks/ # Custom hooks (e.g., useTodos, useCreateTask)
+├── lib/ # Supabase client instance
+├── pages/ # Page-level components (e.g., TaskPage)
+├── types/ # TypeScript types (e.g., Task, TaskStatus)
+├── utils/ # Utility functions (e.g., error handling)
+└── App.tsx
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+---
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## 🧠 Features
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- ✅ User Authentication (via Supabase)
+- ✅ Create Task (with title, description, status, extras)
+- ✅ Update Task status
+- ✅ Delete Task
+- ✅ Fetch Tasks per authenticated user
+- ✅ Graceful error handling with toasts/logs
+- ✅ Strict type validation with TypeScript
+- ✅ Query cache invalidation using React Query
+
+---
+
+🪄 Supabase Setup
+Create a new Supabase project: https://app.supabase.com
+
+Add a table named Task with columns:
+
+id: UUID, Primary Key
+
+user_id: UUID
+
+title: Text
+
+description: Text
+
+status: Text
+
+extras: JSONB
+
+created_at: Timestamp with timezone
+
+
+🚀 Getting Started
+bash
+Copy
+Edit
+# 1. Clone this repository
+git clone https://github.com/your-username/taskify.git
+cd taskify
+
+# 2. Install dependencies
+npm install
+
+# 3. Set your Supabase credentials
+cp .env.example .env
+
+# 4. Run the dev server
+npm run dev
+
+🌐 Environment Variables
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key
+
+🧹 Scripts
+npm run dev      # Start dev server
+npm run build    # Build for production
+npm run lint     # Run ESLint
