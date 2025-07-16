@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Menu,
   MenuButton,
@@ -18,6 +18,7 @@ import Table from "../../components/table";
 import { useTodos } from "../../hooks/useTodos";
 import DeleteTaskModal from "../../components/task-components/delete-confirmation-modal";
 import UpdateTaskModal from "../../components/task-components/update-task-modal";
+import StatusPill from "../../components/status-pill";
 
 function Tasks() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -26,6 +27,12 @@ function Tasks() {
   const [selectedItem, setSelectedItem] = useState<any>();
   const { tasks, isLoading, error } = useTodos();
 
+  useEffect(() => {
+    if (error) {
+      handleError(error);
+    }
+  }, [error]);
+  
   const columns: TableColumn<any>[] = [
     {
       name: "Name",
@@ -48,7 +55,7 @@ function Tasks() {
     {
       name: "Status",
       selector: (row) => row?.status,
-      // cell: (row) => <StatusPill status={row.status} />,
+      cell: (row) => <StatusPill status={row.status} />,
       minWidth: "250px",
     },
     {

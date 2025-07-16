@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { TableColumn } from "react-data-table-component";
 import CountUp from "react-countup";
 import { handleError } from "../../utils/notify";
@@ -8,13 +8,19 @@ import CardLayout from "../../components/card-layout";
 import Table from "../../components/table";
 import CustomButton from "../../components/custom-button";
 import { useTodos } from "../../hooks/useTodos";
+import StatusPill from "../../components/status-pill";
 
 const Dashboard = () => {
   const [loading, _setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState(1);
 
   const { tasks, isLoading, error } = useTodos();
-  // handleError(error)
+
+  useEffect(() => {
+    if (error) {
+      handleError(error);
+    }
+  }, [error]);
 
 
   const columns: TableColumn<any>[] = [
@@ -33,7 +39,7 @@ const Dashboard = () => {
     {
       name: "Status",
       selector: (row) => row.status,
-      // cell: (row) => <StatusPill status={row.status} />,
+      cell: (row) => <StatusPill status={row.status} />,
       minWidth: "250px",
     },
     {
