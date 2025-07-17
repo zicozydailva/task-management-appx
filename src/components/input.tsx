@@ -10,6 +10,7 @@ interface Props {
   onChange: (e: any) => void;
   variant?: "light" | "dark";
   disabled?: boolean;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 export default function Input({
@@ -21,6 +22,7 @@ export default function Input({
   onChange,
   variant = "light",
   disabled,
+  onBlur
 }: Props) {
   const variants = {
     light: "bg-white",

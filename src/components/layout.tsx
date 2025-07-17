@@ -15,7 +15,6 @@ import { cn } from "../lib/utils";
 import { APP_ROUTES, LANDING_PAGE_URL } from "../utils/constants";
 import { Link, useNavigate } from "react-router-dom";
 import { handleError } from "../utils/notify";
-import { FaPersonBooth } from "react-icons/fa";
 import userAvatar from "../assets/images/user-avatar.png";
 import { useLogout } from "../utils/api/users/users.api";
 interface Props {

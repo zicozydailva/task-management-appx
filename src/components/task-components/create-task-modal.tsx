@@ -1,4 +1,4 @@
-import { Dispatch, FormEvent, SetStateAction, useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useState, useEffect } from "react";
 import Modal from "../modal";
 import Button from "../button";
 import { handleError, handleGenericSuccess } from "../../utils/notify";
@@ -21,12 +21,16 @@ export default function CreateTaskModal({ isOpen, setIsOpen }: Props) {
     title: string;
     description: string;
     status: TaskStatus;
-    extras: any[];
+    extras: {
+      tags?: string[];
+      dueDate?: string;
+      priority?: "low" | "medium" | "high";
+    };
   }>({
     title: "",
     description: "",
     status: "pending",
-    extras: [],
+    extras: {},
   });
 
   const statuses = [
@@ -48,10 +52,20 @@ export default function CreateTaskModal({ isOpen, setIsOpen }: Props) {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      setIsLoading(true)
+      setIsLoading(true);
+
+      const cleanTags = tagInput
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter((tag) => tag !== "");
+
       await createTask({
         ...formData,
         status: formData.status as "pending" | "in-progress" | "done",
+        extras: {
+          ...formData.extras,
+          tags: cleanTags,
+        }
       });
 
       setIsOpen(false);
@@ -62,13 +76,22 @@ export default function CreateTaskModal({ isOpen, setIsOpen }: Props) {
         title: "",
         description: "",
         status: "pending",
-        extras: []
+        extras: {}
       });
+      setTagInput("");
     } catch (error) {
       handleError(error);
       setIsLoading(false);
     }
   };
+
+
+  const [tagInput, setTagInput] = useState("");
+  useEffect(() => {
+    setTagInput(formData.extras.tags?.join(", ") || "");
+  }, [formData.extras.tags]);
+
+
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
       <form onSubmit={handleSubmit}>
@@ -103,6 +126,65 @@ export default function CreateTaskModal({ isOpen, setIsOpen }: Props) {
             onChange={handleSelect}
             variant="light"
           />
+
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <Input
+              name="dueDate"
+              type="date"
+              value={formData.extras.dueDate || ""}
+              label="Due Date"
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  extras: { ...formData.extras, dueDate: e.target.value },
+                })
+              }
+              variant="light"
+            />
+            <Select
+              name="priority"
+              label="Priority"
+              value={formData.extras.priority || ""}
+              options={[
+                { name: "Low 🔵", value: "low" },
+                { name: "Medium 🟡", value: "medium" },
+                { name: "High 🔴", value: "high" },
+              ]}
+              onChange={(opt) =>
+                setFormData({
+                  ...formData,
+                  extras: {
+                    ...formData.extras,
+                    priority: opt.value as 'low' | 'medium' | 'high',
+                  },
+                })
+              }
+              variant="light"
+            />
+          </div>
+
+          <Input
+            type="text"
+            name="tags"
+            label="Tags (comma-separated)"
+            placeholder="e.g. design, urgent"
+            value={tagInput}
+            onChange={e => setTagInput(e.target.value)}
+            variant="light"
+            onBlur={() => {
+              setFormData({
+                ...formData,
+                extras: {
+                  ...formData.extras,
+                  tags: tagInput
+                    .split(",")
+                    .map((tag) => tag.trim())
+                    .filter((tag) => tag !== ""),
+                }
+              });
+            }}
+          />
+
         </div>
         <div className="my-5">
           <Button loading={isLoading} rounded={false} className="w-full">
