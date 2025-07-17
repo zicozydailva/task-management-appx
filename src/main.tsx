@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import App from "./App.tsx";
 import "./index.css";
+import { AuthProvider } from "./context/AuthContext.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } },
@@ -14,7 +15,9 @@ const queryClient = new QueryClient({
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
       <ToastContainer theme="colored" />
     </QueryClientProvider>
   </StrictMode>

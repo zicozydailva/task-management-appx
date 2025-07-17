@@ -1,10 +1,19 @@
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { Outlet, Navigate } from "react-router-dom";
 import supabase from "./lib/supabaseClient";
+import { User } from "@supabase/supabase-js";
+
+interface AuthContextType {
+  user: User | null
+  loading: boolean
+}
+
 
 const PrivateRoute = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
   console.log("PrivateRoute component rendered");
 

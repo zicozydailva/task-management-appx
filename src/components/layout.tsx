@@ -17,6 +17,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { handleError } from "../utils/notify";
 import userAvatar from "../assets/images/user-avatar.png";
 import { useLogout } from "../utils/api/users/users.api";
+import { useAuth } from "../context/AuthContext";
 interface Props {
   header: string;
   subhead?: string;
@@ -28,7 +29,7 @@ export default function Layout({ header, subhead, children, loading }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const { mutate: logout } = useLogout();
-
+  const { user } = useAuth()
 
   const toggleOpen = () => {
     setIsOpen(!isOpen);
@@ -94,6 +95,9 @@ export default function Layout({ header, subhead, children, loading }: Props) {
                         Go to website
                       </Link>
                     </p>
+                  </div>
+                  <div>
+                    {user?.email}
                   </div>
                   <div>
                     <img
