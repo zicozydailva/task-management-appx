@@ -31,7 +31,7 @@ const Dashboard = () => {
     if (error) {
       handleError(error);
     }
-  }, [error]);
+  }, [isLoading, tasks, error]);
 
 
   const columns: TableColumn<any>[] = [

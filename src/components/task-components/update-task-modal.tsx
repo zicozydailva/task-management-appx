@@ -6,7 +6,7 @@ import Input from "../input";
 import Select from "../select";
 import TextArea from "../text-area";
 import { useUpdateTask } from "../../hooks/useTodos";
-import { TaskStatus } from '../../interfaces/index';
+import { PriorityStatus, TaskStatus } from '../../interfaces/index';
 
 interface Props {
   isOpen: boolean;
@@ -52,6 +52,7 @@ export default function UpdateTaskModal({ isOpen, setIsOpen, selectedItem }: Pro
         extras: {
           ...(formData.extras || {}),
           dueDate: dueDate,
+          priority: selectedItem.extras?.priority || null, 
         },
 
       });
@@ -100,7 +101,7 @@ export default function UpdateTaskModal({ isOpen, setIsOpen, selectedItem }: Pro
           extras: {
             ...formData.extras,
             tag: cleanTags,
-            dueDate: formData.extras.dueDate || null, 
+            dueDate: formData.extras.dueDate || null,
           },
         },
       });
@@ -172,7 +173,7 @@ export default function UpdateTaskModal({ isOpen, setIsOpen, selectedItem }: Pro
                   ...formData,
                   extras: {
                     ...formData.extras,
-                    priority: opt.value as "low" | "medium" | "high",
+                    priority: opt.value as PriorityStatus,
                   },
                 })
               }
