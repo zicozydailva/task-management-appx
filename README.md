@@ -90,8 +90,6 @@ npm run lint     # Run ESLint
 - Unit test
 - Third party Oauth, Forgot password, Reset Password Functionality
 - Enhanced DTOs and Validation structure
-- Role-based access controls (RBAC) & Role Level Security(multi-tenant architecture)
-- Global error handler and toast feedback system
 - Request/response interceptors for user context injection
 - AI-assisted autocomplete or tagging (e.g., using OpenAI or Replicate)
 - Analytics dashboard for task activity & performance
