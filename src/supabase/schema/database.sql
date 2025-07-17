@@ -43,4 +43,4 @@ CREATE TRIGGER update_boards_updated_at BEFORE UPDATE ON task
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 -- Note: Sample data will be created automatically when you first log in
--- The app will create a default board with sample cards for new users 
+-- The app will create a default task with sample cards for new users 
