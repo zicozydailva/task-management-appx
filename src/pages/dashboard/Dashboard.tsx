@@ -11,6 +11,7 @@ import { useTaskStatusCounts, useTodos } from "../../hooks/useTodos";
 import StatusPill from "../../components/status-pill";
 import DoughnutChart from "../../components/dashboard-chart/doughnut-chart";
 import ActiveEsimChart from "../../components/dashboard-chart/user-chart";
+import { useGetAllUsers } from "../../utils/api/users/users.api";
 
 const Dashboard = () => {
   const [loading, _setLoading] = useState(false);
@@ -18,7 +19,9 @@ const Dashboard = () => {
 
   const { tasks, isLoading, error } = useTodos();
   const { data: statusCounts } = useTaskStatusCounts();
-  console.log('statusCounts', statusCounts)
+  const { data: users } = useGetAllUsers();
+
+  console.log({ users })
 
   useEffect(() => {
     if (error) {
@@ -139,7 +142,7 @@ const Dashboard = () => {
               <p className="text-sm text-black md:text-base">Pending Tasks</p>
               <p className="text-md font-semibold text-black md:text-xl">
                 <CountUp
-                  end={statusCounts.pending || 0}
+                  end={statusCounts?.pending || 0}
                   duration={3}
                 />
               </p>
@@ -207,7 +210,7 @@ const Dashboard = () => {
               </p>
               <p className="text-md font-semibold text-black md:text-xl">
                 <CountUp
-                  end={statusCounts["in-progress"] || 0}
+                  end={statusCounts?.["in-progress"] || 0}
                   duration={3}
                 />
               </p>
@@ -273,7 +276,7 @@ const Dashboard = () => {
               <p className="text-sm text-black md:text-base">Completed Tasks</p>
               <p className="text-md font-semibold text-black md:text-xl">
                 <CountUp
-                  end={statusCounts.completed || 0}
+                  end={statusCounts?.completed || 0}
                   duration={3}
                 />
               </p>
@@ -286,7 +289,7 @@ const Dashboard = () => {
         <aside className=" md:w-2/3 rounded-xl border border-gray-300 p-8">
           <h2 className="mb-4 text-black">Users</h2>
           <h2 className="mb-4 font-semibold text-2xl text-black">
-            {/* <CountUp end={users?.length || 0} duration={3} /> */}
+            <CountUp end={users?.length || 0} duration={3} />
           </h2>
           <ActiveEsimChart />
         </aside>
@@ -334,11 +337,11 @@ const Dashboard = () => {
 
           {activeTab == 2 && (
             <div className="bg-white rounded-3xl py-5 border">
-              {/* <Table
-                progressPending={userFetchPending}
+              <Table
+                // progressPending={userFetchPending}
                 columns={usersColumns}
                 data={users}
-              /> */}
+              />
             </div>
           )}
         </aside>

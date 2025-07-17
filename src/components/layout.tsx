@@ -14,10 +14,10 @@ import { RiLogoutBoxRFill } from "react-icons/ri";
 import { cn } from "../lib/utils";
 import { APP_ROUTES, LANDING_PAGE_URL } from "../utils/constants";
 import { Link, useNavigate } from "react-router-dom";
-import useDashboardApi from "../utils/api/dashboard.api";
 import { handleError } from "../utils/notify";
 import { FaPersonBooth } from "react-icons/fa";
 import userAvatar from "../assets/images/user-avatar.png";
+import { useLogout } from "../utils/api/users/users.api";
 interface Props {
   header: string;
   subhead?: string;
@@ -28,6 +28,8 @@ interface Props {
 export default function Layout({ header, subhead, children, loading }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const { mutate: logout } = useLogout();
+
 
   const toggleOpen = () => {
     setIsOpen(!isOpen);
@@ -41,6 +43,7 @@ export default function Layout({ header, subhead, children, loading }: Props) {
       color: "text-red-600",
       onclick: async () => {
         try {
+          onclick = (() => logout())
           navigate(APP_ROUTES.Login, { replace: true });
         } catch (error) {
           handleError(error);

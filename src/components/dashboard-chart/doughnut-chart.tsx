@@ -53,12 +53,12 @@ const DoughnutChart = ({ taskCounts }: DoughnutChartProps) => {
   const chartData = [
     {
       name: "Pending",
-      value: taskCounts.pending || 20,
+      value: taskCounts?.pending || 20,
       color: COLORS.pending,
     },
     {
       name: "In-Progress",
-      value: taskCounts["in-progress"] || 0,
+      value: taskCounts?.["in-progress"] || 0,
       color: COLORS["in-progress"],
     },
     {

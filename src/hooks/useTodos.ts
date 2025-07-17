@@ -4,7 +4,6 @@ import { queryKeys } from '../utils/constants';
 import { createTask, deleteTask, updateTask } from '../utils/api/tasks/tasks.api';
 import { Task } from '../interfaces';
 
-
 export const useTodos = () => {
     const { data: tasks, isLoading, error } = useQuery({
         queryKey: [queryKeys.tasks],
@@ -82,3 +81,4 @@ export const useTaskStatusCounts = () => {
         },
     });
 };
+

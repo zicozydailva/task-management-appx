@@ -1,5 +1,5 @@
 
-import { Task, TaskStatus } from "../../../interfaces";
+import { Task } from "../../../interfaces";
 import supabase from "../../../lib/supabaseClient";
 
 export async function createTask(newTask: Omit<Task, 'id' | 'user_id' | 'created_at'>) {
