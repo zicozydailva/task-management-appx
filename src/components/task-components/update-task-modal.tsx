@@ -191,7 +191,7 @@ export default function UpdateTaskModal({ isOpen, setIsOpen, selectedItem }: Pro
           />
         </div>
         <div className="my-5">
-          <Button loading={isLoading} rounded={false} className="w-full">
+          <Button disabled={!formData.title} loading={isLoading} rounded={false} className="w-full">
             Update Task
           </Button>
         </div>

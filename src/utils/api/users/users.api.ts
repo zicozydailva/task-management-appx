@@ -22,3 +22,9 @@ export const useLogout = () => {
         },
     });
 };
+
+export async function getCurrentUser() {
+    const { data, error } = await supabase.auth.getUser();
+    if (error || !data?.user) throw new Error("User not logged in");
+    return data.user;
+}
