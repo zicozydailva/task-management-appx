@@ -19,11 +19,13 @@ import { useTodos } from "../../hooks/useTodos";
 import DeleteTaskModal from "../../components/task-components/delete-confirmation-modal";
 import UpdateTaskModal from "../../components/task-components/update-task-modal";
 import StatusPill from "../../components/status-pill";
+import TaskDetailsModal from "../../components/task-components/task-details-modal";
 
 function Tasks() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<any>();
   const { tasks, isLoading, error } = useTodos();
 
@@ -32,7 +34,7 @@ function Tasks() {
       handleError(error);
     }
   }, [error]);
-  
+
   const columns: TableColumn<any>[] = [
     {
       name: "Name",
@@ -133,7 +135,14 @@ function Tasks() {
         </Button>
       </div>
       <div className="bg-white rounded-3xl py-5 border">
-        <Table progressPending={isLoading} columns={columns} data={tasks} />
+        <Table
+          progressPending={isLoading}
+          columns={columns}
+          data={tasks}
+          onRowClicked={(row) => {
+            setSelectedItem(row);
+            setIsDetailsModalOpen(true);
+          }} />
       </div>
 
       <CreateTaskModal
@@ -149,6 +158,11 @@ function Tasks() {
         isOpen={isUpdateModalOpen}
         setIsOpen={setIsUpdateModalOpen}
         selectedItem={selectedItem}
+      />
+      <TaskDetailsModal
+        isOpen={isDetailsModalOpen}
+        setIsOpen={setIsDetailsModalOpen}
+        taskDetails={selectedItem}
       />
     </Layout>
   );

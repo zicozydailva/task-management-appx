@@ -187,7 +187,7 @@ export default function CreateTaskModal({ isOpen, setIsOpen }: Props) {
 
         </div>
         <div className="my-5">
-          <Button loading={isLoading} rounded={false} className="w-full">
+          <Button disabled={!formData.title} loading={isLoading} rounded={false} className="w-full">
             Create Task
           </Button>
         </div>

@@ -7,6 +7,9 @@ interface Props {
 
 export default function StatusPill({ status, size = "xs" }: Props) {
   const statuses: any = {
+    low: "bg-green-400/10 text-green-600",
+    medium: "bg-yellow-400/10 text-yellow-600",
+    high: "bg-red-400/10 text-red-600",
     completed: "bg-green-600/10 text-green-600",
     pending: "bg-[#E5A72F] text-white",
     "in-progress": "bg-amber-600/10 text-amber-600",
