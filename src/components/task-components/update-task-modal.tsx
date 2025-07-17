@@ -25,7 +25,7 @@ export default function UpdateTaskModal({ isOpen, setIsOpen, selectedItem }: Pro
     extras: {
       tag?: string[];
       dueDate?: string;
-      priority?: "low" | "medium" | "high";
+      priority?: PriorityStatus;
     };
   }>({
     title: "",

@@ -6,7 +6,7 @@ import Input from "../input";
 import Select from "../select";
 import TextArea from "../text-area";
 import { useCreateTask } from "../../hooks/useTodos";
-import { TaskStatus } from "../../interfaces";
+import { PriorityStatus, TaskStatus } from "../../interfaces";
 
 interface Props {
   isOpen: boolean;
@@ -24,7 +24,7 @@ export default function CreateTaskModal({ isOpen, setIsOpen }: Props) {
     extras: {
       tags?: string[];
       dueDate?: string;
-      priority?: "low" | "medium" | "high";
+      priority?: PriorityStatus;
     };
   }>({
     title: "",
