@@ -23,7 +23,7 @@ export default function UpdateTaskModal({ isOpen, setIsOpen, selectedItem }: Pro
     description: string;
     status: TaskStatus;
     extras: {
-      tags?: string[];
+      tag?: string[];
       dueDate?: string;
       priority?: "low" | "medium" | "high";
     };
@@ -38,13 +38,24 @@ export default function UpdateTaskModal({ isOpen, setIsOpen, selectedItem }: Pro
 
   useEffect(() => {
     if (selectedItem) {
+
+      const dueDateRaw = selectedItem.extras?.dueDate;
+      const dueDate =
+        dueDateRaw && typeof dueDateRaw === 'string'
+          ? new Date(dueDateRaw).toISOString().split('T')[0]
+          : "";
+
       setFormData({
         title: selectedItem.title || "",
         description: selectedItem.description || "",
         status: selectedItem.status || "pending",
-        extras: selectedItem.extras || {},
+        extras: {
+          ...(formData.extras || {}),
+          dueDate: dueDate,
+        },
+
       });
-      setTagInput(selectedItem.extras?.tags?.join(", ") || "");
+      setTagInput(selectedItem.extras?.tag?.join(", ") || "");
     }
   }, [selectedItem]);
 
@@ -88,7 +99,8 @@ export default function UpdateTaskModal({ isOpen, setIsOpen, selectedItem }: Pro
           status: formData.status,
           extras: {
             ...formData.extras,
-            tags: cleanTags,
+            tag: cleanTags,
+            dueDate: formData.extras.dueDate || null, 
           },
         },
       });
@@ -170,7 +182,7 @@ export default function UpdateTaskModal({ isOpen, setIsOpen, selectedItem }: Pro
 
           <Input
             type="text"
-            name="tags"
+            name="tag"
             label="Tags (comma-separated)"
             placeholder="e.g. design, urgent"
             value={tagInput}
@@ -180,7 +192,7 @@ export default function UpdateTaskModal({ isOpen, setIsOpen, selectedItem }: Pro
                 ...formData,
                 extras: {
                   ...formData.extras,
-                  tags: tagInput
+                  tag: tagInput
                     .split(",")
                     .map((tag) => tag.trim())
                     .filter((tag) => tag),

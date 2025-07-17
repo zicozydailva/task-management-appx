@@ -12,6 +12,7 @@ import StatusPill from "../../components/status-pill";
 import DoughnutChart from "../../components/dashboard-chart/doughnut-chart";
 import ActiveEsimChart from "../../components/dashboard-chart/user-chart";
 import { useGetAllUsers } from "../../utils/api/users/users.api";
+import { createSampleData } from "../../utils/api/tasks/tasks.api";
 
 const Dashboard = () => {
   const [loading, _setLoading] = useState(false);
@@ -24,6 +25,9 @@ const Dashboard = () => {
   console.log({ users })
 
   useEffect(() => {
+    if (!isLoading && !tasks?.length) {
+      createSampleData()
+    }
     if (error) {
       handleError(error);
     }

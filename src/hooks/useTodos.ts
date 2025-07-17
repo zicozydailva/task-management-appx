@@ -3,15 +3,19 @@ import supabase from '../lib/supabaseClient';
 import { queryKeys } from '../utils/constants';
 import { createTask, deleteTask, updateTask } from '../utils/api/tasks/tasks.api';
 import { Task } from '../interfaces';
+import { getCurrentUser } from '../utils/api/users/users.api';
 
 export const useTodos = () => {
     const { data: tasks, isLoading, error } = useQuery({
         queryKey: [queryKeys.tasks],
         queryFn: async () => {
+            const user = await getCurrentUser();
             const { data, error } = await supabase
-                .from('Task')
+                .from('task')
                 .select('*')
+                .eq('user_id', user.id) 
                 .order('created_at', { ascending: false });
+
             if (error) throw error;
             return data;
         },
@@ -64,7 +68,7 @@ export const useTaskStatusCounts = () => {
         queryKey: ['task-status-counts'],
         queryFn: async () => {
             const { data: tasks, error } = await supabase
-                .from('Task')
+                .from('task')
                 .select('status');
 
             if (error) throw error;

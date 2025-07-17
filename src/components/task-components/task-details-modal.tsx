@@ -48,9 +48,9 @@ export default function TaskDetailsModal({
                     <KeyValueComponent
                         name="Tags"
                         value={
-                            Array.isArray(taskDetails?.extras?.tags) && taskDetails?.extras?.tags?.length > 0 ? (
+                            Array.isArray(taskDetails?.extras?.tag) && taskDetails?.extras?.tag?.length > 0 ? (
                                 <div className="flex flex-wrap gap-2 justify-end">
-                                    {taskDetails?.extras?.tags.map((tag: string) => (
+                                    {taskDetails?.extras?.tag.map((tag: string) => (
                                         <span
                                             key={tag}
                                             className="rounded-full bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1"

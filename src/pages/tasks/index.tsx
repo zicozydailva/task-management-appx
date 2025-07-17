@@ -48,10 +48,16 @@ function Tasks() {
       cell: (row) => <p>{row?.description}</p>,
       minWidth: "350px",
     },
+     {
+      name: "Priority",
+      selector: (row) => row?.extras?.priority,
+      cell: (row) => <StatusPill status={row?.extras?.priority} />,
+      minWidth: "250px",
+    },
     {
-      name: "Date-Time",
+      name: "Due date",
       selector: (row) =>
-        format(new Date(row?.created_at), "MMMM d, yyyy h:mm a"),
+        format(new Date(row?.extras?.dueDate), "MMMM d, yyyy h:mm a"),
       minWidth: "250px",
     },
     {
