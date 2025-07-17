@@ -87,15 +87,8 @@ npm run lint     # Run ESLint
 
 
 # What I'd build next if I had more time
-- Unit test
+- Unit test, E2E testing with Playwright or Cypress
 - Third party Oauth, Forgot password, Reset Password Functionality
-- Enhanced DTOs and Validation structure
-- Request/response interceptors for user context injection
 - AI-assisted autocomplete or tagging (e.g., using OpenAI or Replicate)
-- Analytics dashboard for task activity & performance
-- E2E testing with Playwright or Cypress
 - Internationalization (i18n) support
-- Modular component library with Storybook integration
-- Optimistic UI updates with rollback logic for Supabase mutations
 - Real-time updates via Supabase realtime or WebSockets
-- Admin panel or role-based access controls (RBAC)
