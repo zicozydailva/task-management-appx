@@ -1,6 +1,6 @@
 # 📝 Task management app — Smart Task Manager with Supabase + React
 
-Taskify is a full-stack task management application built with **React**, **TypeScript**, and **Supabase**. It lets users securely authenticate, create, update, and manage their daily tasks with real-time syncing and persistent storage.
+Task management is a full-stack task management application built with **React**, **TypeScript**, and **Supabase**. It lets users securely authenticate, create, update, and manage their daily tasks with real-time syncing and persistent storage.
 
 ## ⚙️ Tech Stack
 
@@ -64,8 +64,8 @@ bash
 Copy
 Edit
 # 1. Clone this repository
-git clone https://github.com/your-username/taskify.git
-cd taskify
+git clone https://github.com/zicozydailva/task-management-appx.git
+cd task-management-app
 
 # 2. Install dependencies
 npm install
@@ -76,7 +76,7 @@ cp .env.example .env
 # 4. Run the dev server
 npm run dev
 
-🌐 Environment Variables
+🌐 Environment Variables - .env.example
 VITE_SUPABASE_URL=https://your-project.supabase.co
 VITE_SUPABASE_ANON_KEY=your-anon-key
 
