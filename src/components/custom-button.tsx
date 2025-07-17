@@ -1,4 +1,4 @@
-import { cn } from "../../../../../Downloads/task-management-app-main/src/lib/utils";
+import { cn } from "../lib/utils";
 
 type ButtonVariants =
   | "primary"
