@@ -45,22 +45,25 @@ const renderCustomizedLabel = ({
   );
 };
 
-const DoughnutChart = ({ taskCounts }) => {
+type DoughnutChartProps = {
+  taskCounts: Record<string, number>;
+};
+
+const DoughnutChart = ({ taskCounts }: DoughnutChartProps) => {
   const chartData = [
     {
       name: "Pending",
-      value: taskCounts?.statusCounts?.pending || 20,
+      value: taskCounts.pending || 20,
       color: COLORS.pending,
     },
     {
       name: "In-Progress",
-      value: 10,
-      // value: taskCounts?.statusCounts["in-progress"] || 0,
+      value: taskCounts["in-progress"] || 0,
       color: COLORS["in-progress"],
     },
     {
       name: "Completed",
-      value: taskCounts?.statusCounts?.completed || 30,
+      value: taskCounts?.completed || 30,
       color: COLORS.completed,
     },
   ];

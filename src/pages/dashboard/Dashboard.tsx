@@ -7,7 +7,7 @@ import Layout from "../../components/layout";
 import CardLayout from "../../components/card-layout";
 import Table from "../../components/table";
 import CustomButton from "../../components/custom-button";
-import { useTodos } from "../../hooks/useTodos";
+import { useTaskStatusCounts, useTodos } from "../../hooks/useTodos";
 import StatusPill from "../../components/status-pill";
 import DoughnutChart from "../../components/dashboard-chart/doughnut-chart";
 import ActiveEsimChart from "../../components/dashboard-chart/user-chart";
@@ -17,6 +17,8 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
 
   const { tasks, isLoading, error } = useTodos();
+  const { data: statusCounts } = useTaskStatusCounts();
+  console.log('statusCounts', statusCounts)
 
   useEffect(() => {
     if (error) {
@@ -136,10 +138,10 @@ const Dashboard = () => {
             <div className="space-y">
               <p className="text-sm text-black md:text-base">Pending Tasks</p>
               <p className="text-md font-semibold text-black md:text-xl">
-                {/* <CountUp
-                  end={taskCounts?.statusCounts.pending || 0}
+                <CountUp
+                  end={statusCounts.pending || 0}
                   duration={3}
-                /> */}
+                />
               </p>
             </div>
           </div>
@@ -204,10 +206,10 @@ const Dashboard = () => {
                 In-progress Tasks
               </p>
               <p className="text-md font-semibold text-black md:text-xl">
-                {/* <CountUp
-                  end={taskCounts?.statusCounts["in-progress"] || 0}
+                <CountUp
+                  end={statusCounts["in-progress"] || 0}
                   duration={3}
-                /> */}
+                />
               </p>
             </div>
           </div>
@@ -270,10 +272,10 @@ const Dashboard = () => {
             <div className="space-y">
               <p className="text-sm text-black md:text-base">Completed Tasks</p>
               <p className="text-md font-semibold text-black md:text-xl">
-                {/* <CountUp
-                  end={taskCounts?.statusCounts.completed || 0}
+                <CountUp
+                  end={statusCounts.completed || 0}
                   duration={3}
-                /> */}
+                />
               </p>
             </div>
           </div>
@@ -291,8 +293,7 @@ const Dashboard = () => {
         <aside className="rounded-xl md:w-1/2 border border-gray-300 p-4">
           <h2 className=" text-black">Tasks</h2>
           <div className="">
-            {/* <DoughnutChart taskCounts={taskCounts} /> */}
-            <DoughnutChart taskCounts={20} />
+            <DoughnutChart taskCounts={statusCounts} />
           </div>
         </aside>
       </section>

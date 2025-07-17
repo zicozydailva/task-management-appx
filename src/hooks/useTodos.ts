@@ -6,8 +6,6 @@ import { Task } from '../interfaces';
 
 
 export const useTodos = () => {
-    const queryClient = useQueryClient();
-
     const { data: tasks, isLoading, error } = useQuery({
         queryKey: [queryKeys.tasks],
         queryFn: async () => {
@@ -58,6 +56,29 @@ export const useUpdateTask = () => {
             updateTask(args.id, args.updates),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: [queryKeys.tasks] });
+        },
+    });
+};
+
+export const useTaskStatusCounts = () => {
+    return useQuery({
+        queryKey: ['task-status-counts'],
+        queryFn: async () => {
+            const { data: tasks, error } = await supabase
+                .from('Task')
+                .select('status');
+
+            if (error) throw error;
+
+            const counts = tasks.reduce(
+                (acc, task) => {
+                    acc[task.status] = (acc[task.status] || 0) + 1;
+                    return acc;
+                },
+                {} as Record<string, number>
+            );
+
+            return counts;
         },
     });
 };
